@@ -3,6 +3,7 @@ import GeometryBasics
 import ImageMagick
 import LibGit2
 import JSON
+import Aqua
 
 using VisualRegressionTests
 using RecipesPipeline

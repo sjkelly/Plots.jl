@@ -164,3 +164,6 @@ end
               ([2(i - 1) + 1, 2i], [2(i - 1) + 1, 2i])
     end
 end
+
+# Aqua for general QA tests: ambiguities, stale deps, undefined exports, etc.
+Aqua.test_all(Plots)
