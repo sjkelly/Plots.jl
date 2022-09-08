@@ -183,7 +183,7 @@ function gr_polyline(x, y, func = GR.polyline; arrowside = :none, arrowstyle = :
 
         # if we found a start and end, draw the line segment, otherwise we're done
         if istart > 0 && iend > 0
-            func(x[istart:iend], y[istart:iend])
+            func(@view(x[istart:iend]), @view(y[istart:iend]))
             if arrowside in (:head, :both)
                 gr_set_arrowstyle(arrowstyle)
                 GR.drawarrow(x[iend - 1], y[iend - 1], x[iend], y[iend])
@@ -225,7 +225,7 @@ function gr_polyline3d(x, y, z, func = GR.polyline3d)
 
         # if we found a start and end, draw the line segment, otherwise we're done
         if istart > 0 && iend > 0
-            func(x[istart:iend], y[istart:iend], z[istart:iend])
+            func(@view(x[istart:iend]), @view(y[istart:iend]), @view(z[istart:iend]))
         else
             break
         end
@@ -552,7 +552,7 @@ function gr_draw_colorbar(cbar::GRColorbar, sp::Subplot, clims, viewport_plotare
             levels = [levels[1:(end - 1)]; clims[2]]
         end
         colors = gr_colorbar_colors(last(series), clims)
-        for (from, to, color) in zip(levels[1:(end - 1)], levels[2:end], colors)
+        for (from, to, color) in zip(@view(levels[1:(end - 1)]), @view(levels[2:end]), colors)
             GR.setfillcolorind(color)
             GR.fillrect(xmin, xmax, from, to)
         end
@@ -1226,8 +1226,8 @@ function gr_legend_pos(v::Tuple{S,T}, viewport_plotarea) where {S<:Real,T<:Real}
 end
 
 function gr_legend_pos(theta::Real, leg, viewport_plotarea; axisclearance = nothing)
-    xcenter = +(viewport_plotarea[1:2]...) / 2
-    ycenter = +(viewport_plotarea[3:4]...) / 2
+    xcenter = sum(@view(viewport_plotarea[1:2])) / 2
+    ycenter = sum(@view(viewport_plotarea[3:4])) / 2
 
     if isnothing(axisclearance)
         # Inner
