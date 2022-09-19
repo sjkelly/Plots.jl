@@ -1213,7 +1213,7 @@ function pgfx_axis!(opt::Options, sp::Subplot, letter)
         ticks = get_ticks(sp, axis, formatter = latex_formatter(axis[:formatter]))
         # pgf plot ignores ticks with angle below 90 when xmin = 90 so shift values
         tick_values = if ispolar(sp) && letter === :x
-            vcat(rad2deg.(ticks[1][3:end]), 360, 405)
+            vcat(rad2deg.(@view(ticks[1][3:end])), 360, 405)
         else
             ticks[1]
         end

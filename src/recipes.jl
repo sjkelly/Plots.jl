@@ -566,7 +566,7 @@ RecipesPipeline.is_surface(::Type{Val{:hexbin}}) = true
 # ---------------------------------------------------------------------------
 # Histograms
 
-_bin_centers(v::AVec) = (v[1:(end - 1)] + v[2:end]) / 2
+_bin_centers(v::AVec) = (@view(v[1:(end - 1)]) + @view(v[2:end])) / 2
 
 _is_positive(x) = (x > 0) && !(x ≈ 0)
 

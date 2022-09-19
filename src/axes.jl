@@ -367,7 +367,7 @@ function get_minor_ticks(sp, axis, ticks)
         n_default
 
     minorticks = typeof(ticks[1])[]
-    for (i, hi) in enumerate(ticks[2:end])
+    for (i, hi) in enumerate(@view(ticks[2:end]))
         lo = ticks[i]
         if isfinite(lo) && isfinite(hi) && hi > lo
             if log_scaled

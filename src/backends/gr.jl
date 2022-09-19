@@ -949,11 +949,6 @@ function _update_min_padding!(sp::Subplot{GRBackend})
     sp.minpad = Tuple(dpi * [leftpad, toppad, rightpad, bottompad])
 end
 
-function is_equally_spaced(v)
-    d = collect(v[2:end] .- v[1:(end - 1)])
-    all(d .≈ d[1])
-end
-
 remap(x, lo, hi) = (x - lo) / (hi - lo)
 function get_z_normalized(z, clims...)
     isnan(z) && return 256 / 255
